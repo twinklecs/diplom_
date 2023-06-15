@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CRM.Models.User>
+
+@{ ViewData["Title"] = "Details"; }
+
+    <meta charset="utf-8">
+
+<h1>Список @ViewBag.Message</h1>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Вернуться к списку ролей</a>
+</div>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Имя
+            </th>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Логин
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            <td>
+                @if (item.Id == ViewBag.userId)
+                {
+                <a asp-controller="Accounts" class="btn btn-info" asp-action="Details">Показать</a>
+                } else
+                {
+            <a asp-controller="Users" class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Показать</a>
+                }
+            </td>
+        </tr>}
+    </tbody>
+</table>

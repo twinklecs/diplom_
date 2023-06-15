@@ -1,0 +1,56 @@
+﻿@model CRM.Models.Note
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+    <meta charset="utf-8">
+
+<h1>Создать заметку</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Соддержание</span>
+                </div>
+                <textarea asp-for="Content" class="form-control" aria-label="Content"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactId" class="control-label">Контакт</label>
+                <select asp-for="ContactId" class="form-control">
+                    @foreach (var item in ViewBag.data)
+                    {
+                        @if (item.FIO == ViewBag.Name)
+                        {
+                            <option selected value="@Convert.ToUInt32(item.Id)">@item.FIO</option>
+                        }
+                        else
+                        { 
+                            <option value="@Convert.ToUInt32(item.Id)">@item.FIO</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ContactId" class="text-danger"></span>
+            </div>
+            <div class="form-group">        
+                <input hidden asp-for="UserId" class="form-control" value="@ViewBag.user" readonly/>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-action="Index">Вернуться к списку заметок</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

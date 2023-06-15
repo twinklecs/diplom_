@@ -1,0 +1,13 @@
+﻿@model CRM.Models.User
+
+@{
+    ViewData["Title"] = "Главная страница";
+}
+    <meta charset="utf-8">
+
+    <div class="text-center">
+        
+        <h1 class="display-4">
+            Здравствуй @User.FindFirst("user").Value !
+        </h1>
+    </div>

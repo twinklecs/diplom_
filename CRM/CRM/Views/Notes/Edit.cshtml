@@ -1,0 +1,52 @@
+﻿@model CRM.Models.Note
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+    <meta charset="utf-8">
+
+<h1>Изменить заметку</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Содержание</span>
+                </div>
+                <textarea asp-for="Content" class="form-control" aria-label="Content"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactId" class="control-label">Контакт</label>
+                <select asp-for="ContactId" class="form-control">
+                    @foreach (var item in ViewBag.data)
+                    {
+                        <option value="@Convert.ToUInt32(item.Id)">@item.FIO</option>
+                    }
+                </select>
+                <span asp-validation-for="ContactId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input readonly asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Index">Вернуться к списку заметок</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
